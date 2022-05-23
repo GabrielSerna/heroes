@@ -1,31 +1,44 @@
-import React, {useState} from "react";
+import axios from "axios";
+import React, {useState, useEffect} from "react";
 import Hero from "./components/Hero.js";
 
-function App() {
+const App = () => {
+
+  // USEEFFECT
+  useEffect(() => {
+    console.log('effect');
+    axios
+      .get('http://localhost:3001/heroes')
+      .then(res => {
+        console.log('promise fulfilled')
+        setHeroes(res.data)
+      });
+  }, []);
 
   // SET STATE
-  const [eroi, setEroi] = useState(heroes);
+  const [heroes, setHeroes] = useState([]);
   const [newHero, setNewHero] = useState();
   const [showAll, setShowAll] = useState(true);
 
-  const heroesToShow = showAll ? eroi : eroi.filter( el => el.important === true );
+  const heroesToShow = showAll ? heroes : heroes.filter( el => el.important === true );
 
   const addHero = e => {
     e.preventDefault();
     // console.log('Button clicked', e.target);
     // console.log('Button clicked', e);
+    
     const heroObj = {
-      id: eroi.length + 1,
+      id: heroes.length + 1,
       name: newHero,
       date: new Date().toISOString(),
       important: Math.random() > 0.5
     };
 
-    setEroi(heroes.concat(heroObj));
+    setHeroes(heroes.concat(heroObj));
     setNewHero('');
   };
 
-  const rows = () => eroi.map((hero, idx) =>
+  const rows = () => heroes.map((hero, idx) =>
     <Hero
       key={idx}
       hero={hero}
