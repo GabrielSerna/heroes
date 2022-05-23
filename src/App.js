@@ -26,19 +26,21 @@ function App() {
   // SET STATE
   const [eroi, setEroi] = useState(heroes);
   const [newHero, setNewHero] = useState();
+  const [showAll, setShowAll] = useState(true);
 
+  const heroesToShow = showAll ? eroi : eroi.filter( el => el.important === true );
 
   const addHero = e => {
     e.preventDefault();
     // console.log('Button clicked', e.target);
     // console.log('Button clicked', e);
     const heroObj = {
-      id: heroes.length + 1,
+      id: eroi.length + 1,
       name: newHero,
       date: new Date().toISOString(),
       important: Math.random() > 0.5
     };
-    
+
     setEroi(heroes.concat(heroObj));
     setNewHero('');
   };
@@ -58,6 +60,11 @@ function App() {
   return (
     <div className='App'>
       <h1>HEROES</h1>
+
+      <button onClick={() => setShowAll(!showAll)}>
+        show {showAll ? 'Important' : 'All'}
+      </button>
+
       <ul>
         {rows()}
       </ul>
