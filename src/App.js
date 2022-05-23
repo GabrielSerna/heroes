@@ -26,7 +26,7 @@ const App = () => {
     e.preventDefault();
     // console.log('Button clicked', e.target);
     // console.log('Button clicked', e);
-    
+
     const heroObj = {
       id: heroes.length + 1,
       name: newHero,
@@ -34,8 +34,12 @@ const App = () => {
       important: Math.random() > 0.5
     };
 
-    setHeroes(heroes.concat(heroObj));
-    setNewHero('');
+    axios
+      .post('http://localhost:3001/heroes', heroObj)
+      .then(res => {
+        setHeroes(heroes.concat(heroObj));
+        setNewHero('');
+      });
   };
 
   const rows = () => heroes.map((hero, idx) =>
