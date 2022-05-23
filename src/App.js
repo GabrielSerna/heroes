@@ -2,26 +2,6 @@ import React, {useState} from "react";
 import Hero from "./components/Hero.js";
 
 function App() {
-  const heroes = [
-    {
-      id: 1,
-      name: 'Hulk',
-      date: '2019-12-30t17:30:31.098z',
-      important: true
-    },
-    {
-      id: 2,
-      name: 'Spiderman',
-      date: '2019-12-30t17:30:31.098z',
-      important: true
-    },
-    {
-      id: 3,
-      name: 'Superman',
-      date: '2019-12-30t17:30:31.098z',
-      important: true
-    }
-  ];
 
   // SET STATE
   const [eroi, setEroi] = useState(heroes);
