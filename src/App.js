@@ -19,6 +19,16 @@ const App = () => {
   const [heroes, setHeroes] = useState([]);
   const [newHero, setNewHero] = useState();
   const [showAll, setShowAll] = useState(true);
+  const toggleImportance = id => {
+    const url = `http://localhost:3001/heroes/${id}`;
+    const hero = heroes.find(el => el.id === id);
+    const changeHero = {...hero, important: !hero.important};
+    axios
+      .put(url, changeHero)
+      .then(res => {
+        setHeroes(heroes.map(hero => hero.id !== id ? hero: res.data));
+      });
+  };
 
   const heroesToShow = showAll ? heroes : heroes.filter( el => el.important === true );
 
@@ -46,6 +56,7 @@ const App = () => {
     <Hero
       key={idx}
       hero={hero}
+      toggleImportance={() => toggleImportance(hero.id)}
     />
   );
 

@@ -1,8 +1,15 @@
 import React from 'react';
 
-const Hero = ({hero}) => {
+const Hero = ({hero, toggleImportance}) => {
+  const label = hero.important ? 'Remove important' : 'Add important'
+
   return( 
-      <li>{hero.name}</li>
+      <li>
+        {hero.name}
+        <button onClick={toggleImportance}>
+          {label}
+        </button>
+      </li>
   );
 };
 
